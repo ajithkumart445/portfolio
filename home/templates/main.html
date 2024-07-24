@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>name is Ajithkumar</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-black font-mono">
+        {% load static %}
+
+        <!-- these are styleing css file linkers -->
+        <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+        <link rel="stylesheet" href="{% static 'css/preloader.css' %}">
+        <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+
+        <!--common nav bar -->
+        <div class="text-white px-4 top-0 py-4 align-center w-full font-bold flex justify-between fixed ">
+            <h1 class="text-md sm:text-md md:text-2xl lg:text-4xl p-3" id="hist-text">HELLO WORLD!</h1>
+            <ul class="flex font-semibold list-none text-sm md:text-md lg:text-lg animate-fadeInSide justify-evenly">
+            <a href="https://www.linkedin.com/in/ajithkumar-t-developer"><li class="w-10 md:w-16 h-10 md:h-16 mx-5 my-3 hover:text-green-500   hover:bg-green-500 rounded-lg  border-white"><image src="{% static "linkedin.png" %}"></li></a>
+            <a href="https://github.com/ajithkumart445"><li class="w-10 md:w-16 h-10 md:h-16 mx-5 my-3 hover:text-green-500 hover:bg-green-500 rounded-lg  border-white hover:border-green-500"><image src="{% static "github.png" %}"></li></a></ul>
+        </div>
+
+            {% block home %}
+                
+            {% endblock home %}
+            <div class="text-white text-center p-2 mt-16 bg-slate-950 rounded">Designed and Developed by<a href="#aboutme" class="text-blue-900" > @ AJITHKUMAR.T</a></div>
+    </body>
+    <!--here are the js file reference for the web page-->
+    <script src="{% static 'js/role_scroll.js' %}"></script>
+    <script src="{% static 'js/typewriter.js' %}"></script>
+    <script src="{% static 'js/scroll.js' %}"></script>
+</html> 

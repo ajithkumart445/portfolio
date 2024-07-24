@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+{% block home %}
+ 
+ <div class="text-white mt-28 mx-28"> 
+    {% load static %}
+    <h2 class="text-center text-7xl ml-6 text-green-500 ">{{blogs.blog_title}}</h2><br>
+    <span class="flex justify-between">
+    <p class="text-xl ml-7">{{blogs.intro}}</p>
+    <p class=" text-xl  ">{{blogs.post_date}} </p>
+    </span><br><hr><br>
+    {% comment %} <span class="flex m-5">
+    <h4 class="text-xl ml-7 border border-white text-left p-8 w-1/2 bg-gradient-to-r from-[#ab84f0] to-[#ab84f0] rounded-lg text-black">Languages & Tools used<br><br>{{project.technologies_used}}</h4><br><br>
+    <h4 class="text-xl ml-7 border border-white text-left p-8 w-1/2 bg-gradient-to-l from-[#ab84f0] to-[#ab84f0] rounded-lg text-black">Role<br><br>{{project.role}}</h4><br>
+    </span> {% endcomment %}
+    <h4 class="text-xl ml-12 border border-black text-left p-8 bg-gray-500 rounded-lg">Challenges<br><br>{{project.challenges}}</h4><br>
+    <h4 class="text-xl ml-12 border border-black text-left p-8 bg-gray-500 rounded-lg">Results & learnings<br><br>{{project.results_learnings}}<br><br>
+       </h4>
+       <span class="flex justify-evenly p-4 m-4 flex-wrap">
+        <image src='/{{ blogs.image_1 }}' alt="project image 1" class="w-1/3 rounded mx-4 my-4">
+        <image src='/{{ project.image2 }}' alt="project image 2" class="w-1/3 rounded mx-4 my-4">
+        <image src='/{{ project.image3 }}' alt="project image 3" class="w-1/3 rounded mx-4 my-4">
+       </span>
+ </div>
+ 
+{% endblock home %}
