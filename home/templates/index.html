@@ -1,0 +1,91 @@
+{% extends 'main.html' %}
+
+{% block home %}
+<div class="">
+    {% load static %}
+    <div class="rounded-lg text-center align-center  mt-80 md:mt-80 mb-72 md:mb-72 bg-shadowx-24 headline">
+        <h1 class="text-3xl md:text-6xl text-center text-red font-medium font-mono">Hi I am<br>AJITHKUMAR.T</h1><br>
+        <div class='role-container'>
+            <p class=" text-sm md:text-lg text-center text-bold font-sans" >I'm a <span class=" text-semibold role opacity-0 transition-opacity ease-in-out duration-300 delay-1000 font-bold" id="role"></span></p>
+        </div>
+        <a href="#aboutme">
+            <p class=" text-sm md:text-lg text-center font-medium font-sans underline decoration-blue-600">About Me</p>
+        </a>
+    </div>
+    <div class="align-center p-5 ">
+        <h2 class="text-violet-900  text-center text-4xl m-auto align-center p-5 font-bold mt-12 subheading" id="Projects">Projects</h2>
+        <div class="flex flex-wrap w-full justify-evenly mt-5">
+            {% for pinfo in pi %}
+            <div class="relative w-full md:w-1/4  h-56 mx-5 my-12 p-5 text-2xl flex flex-wrap justify-left shadow-2xl shadow-white  rounded-2xl projects" >
+                <span>
+                    <h3 class="font-semibold">{{pinfo.project_name}}</h3>
+                    <p class="text-sm md:text-md mt-2">{{pinfo.project_description}}</p>
+                    <a href="{% url 'projects' pinfo.id %}"><svg class="w-12 h-12 m-5 p-2 rotate-90 hover:fill-blue-500 absolute right-10 border border-green-500 rounded-xl bg-black hover:bg-green-500 hover:border-black" version="1.1" id="icons" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 128 128" style="enable-background:new 0 0 128 128" xml:space="preserve"><style>.st0,.st1{display:none;fill:#ffffff}.st1,.st3{fill-rule:evenodd;clip-rule:evenodd}.st3,.st4{display:inline;fill:#ffffff}</style><g id="row1"><path id="nav:2_3_" d="M64 1 17.9 127 64 99.8l46.1 27.2L64 1zm0 20.4 32.6 89.2L64 91.3V21.4z" style="fill:#ffffff"/></g></svg></a>
+                </span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="p-5 mt-20 ">
+        <h2 class="text-violet-900 text-center text-4xl m-auto p-5 font-bold subheading" id="aboutme">About me</h2>
+        <div class="flex flex-wrap justify-center items-center">
+            <div class="w-full md:w-1/2   flex justify-center items-center ">
+                <image src="{% static 'images/pf.jpg' %}" class="w-full md:w-1/2 h-auto rounded-lg img">
+            </div>
+            <div class="w-full md:w-1/2 flex items-center justify-center ">
+                <h2 class="text-sm md:text-xl text-center md:text-left text-wrap p-6 desc">
+                    <span class="text-semibold text-3xl md:text-4xl font-bold ">
+                        Hi I'm Ajithkumar.T,
+                    </span><br><br>
+                     A dedicated data science enthusiaist currently pursuing my M.Sc in Data Science.<br> with a background in B.Voc Data Science, I've developed a robust foundation in tha field. <br>
+                    
+                     I specialize in Python and Django full-stack web development, along with a strong expertise in data visualization and more.<br>
+                    
+                    my passion lies in transforming data into actionable insights and building innovative web solutions.<br>
+                    Let's connect and explore how we can leverage data to create impactful solutions together. 
+                    <div class="flex p-12 justify-center ">
+                        <a href="{% static 'pf.jpg' %}" download>
+                        <button class="px-8 py-4 m-5 border-2 rounded-lg border-blue-500 hover:bg-blue-500 hover:text-black hover:border-blac">
+                            Resume
+                        </button></a>
+                        <a href="{% url "certificate" %}">
+                            <button class="px-8 py-4 m-5 border-2 rounded-lg border-blue-500 hover:bg-blue-500 hover:text-black hover:border-blac">
+                                Certifications
+                            </button>
+                        </a>
+                    </div>
+                    <div class="text-center flex gap-4 items-center justify-center">
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ajithkumart445@gmail.com"><span class="p-2 rounded-lg bg-white  flex justify-center items-center hover:bg-blue-500 "><img src="{% static 'images/google.png'%}" class="h-6 w-6"></span></a>
+                        <a href="https://www.instagram.com/_03_error/"><span class="p-2 rounded-lg bg-white flex justify-center items-center hover:bg-pink-500"><img src="{% static 'images/insta.png'%}" class="h-6 w-6"></span></a>
+                        <a href="https://wa.me/+917339632720"><span class="p-2 rounded-lg bg-white flex justify-center items-center hover:bg-green-500"><img src="{% static 'images/whatsapp.png'%}" class="h-6 w-6"></span></a>
+                    </div>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="align-center p-5 ">
+        <h2 class="text-violet-900  text-center text-4xl m-auto align-center p-5 font-bold mt-12 subheading" id="Blogs">Blogs</h2>
+        <div class="w-full flex flex-wrap justify-evenly mt-5 ">
+            {% for binfo in bloginfo %}
+            <div class="max-w-sm mt-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 projects">
+                <a href="{% url 'blogs' binfo.id %}">
+                    <img class="rounded-t-lg" src="{{binfo.image_1}}" alt="" />
+                </a>
+                <div class="p-5">
+                    <a href="{% url 'blogs' binfo.id %}">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{binfo.blog_title}}</h5>
+                    </a>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{binfo.intro}}</p>
+                    <a href="{% url 'blogs' binfo.id %}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Read more
+                        <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                        </svg>
+                    </a>
+                </div>
+            </div> {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock home %}
+    

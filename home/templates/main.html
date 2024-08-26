@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html class="scroll-smooth">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>name is Ajithkumar</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        <script src="https://unpkg.com/scrollreveal"></script>
+    </head>
+    <body class="bg-black text-white font-mono">
+        {% load static %}
+
+        <!-- these are styleing css file linkers -->
+        <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+        <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+
+        <!--common nav bar -->
+        <div class="px-4 top-0 py-4 align-center w-full font-bold flex justify-between fixed ">
+            <h1 class="text-md sm:text-md md:text-2xl lg:text-4xl p-4" id="hist-text">HELLO WORLD!</h1>
+            <ul class="flex font-semibold list-none text-sm md:text-md lg:text-lg animate-fadeInSide justify-evenly">
+            <a href="https://www.linkedin.com/in/ajithkumar-t-developer"><li class="w-10 md:w-16 h-10 md:h-16 mx-5 my-3 hover:bg-blue-600 rounded-lg  border-white"><image src="{% static "images/linkedin.png" %}"></li></a>
+            <a href="https://github.com/ajithkumart445"><li class="w-10 md:w-16 h-10 md:h-16 mx-5 my-3 hover:bg-gray-500 rounded-lg  border-white hover:border-green-500"><image src="{% static "images/github.png" %}"></li></a></ul>
+        </div>
+
+            {% block home %}
+                
+            {% endblock home %}
+
+            <!--The Footer section-->
+            <div class=" text-center p-2 mt-16 bg-slate-950 rounded subheading">Designed and Developed by<a href="#aboutme" class="text-blue-900" > @ AJITHKUMAR.T</a></div>
+    </body>
+    <!--here are the js file reference for the web page-->
+    <script src="{% static 'js/role_scroll.js' %}"></script>
+    <script src="{% static 'js/typewriter.js' %}"></script>
+    <script>
+        ScrollReveal().reveal('.headline',{ delay: 700 , origin: 'top' , reset: true , distance: '200px',  easing: 'ease-in' });
+        ScrollReveal().reveal('.projects',{ delay: 500 , origin: 'left', intervel: 900 , distance: '300px', easing: 'ease-in'});
+        ScrollReveal().reveal('.desc',{ delay: 500 , origin: 'top' , distance: '300px',easing: 'ease-in'});
+        ScrollReveal().reveal('.subheading',{  reset: true ,});
+        ScrollReveal().reveal('.img',{ delay: 1000 , origin: 'right' , distance: '300px',easing: 'ease-in'});
+    </script>
+</html> 

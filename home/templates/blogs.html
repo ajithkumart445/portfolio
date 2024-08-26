@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+{% block home %}
+ 
+<div class="text-white mt-36 m-0 md:m-52 font-mono"> 
+    {% load static %}
+    <h2 class="text-center text-7xl ml-6 text-green-500 ">{{blogs.blog_title}}</h2><br>
+    <p class="text-xl ml-7">{{section}}</p><br><hr><br>
+    {% for section in sections %}
+    <h4 class="text-xl text-left p-8 rounded-lg">{{section.subheading}}<br><br>{{ section.content }}</h4><br>
+    {% endfor %}
+    <span class="flex justify-center flex-wrap">
+      <image src='/{{ blogs.image_1 }}' alt="project image 1" class="w-full rounded px-4 md:px-16 py-2 md:py-2">
+      <image src='/{{ blogs.image_2 }}' alt="project image 2" class="w-full rounded px-4 py-2 md:px-16 md:py-2">
+    </span>  
+ </div>
+ 
+{% endblock home %}
