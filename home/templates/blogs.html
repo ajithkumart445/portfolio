@@ -3,7 +3,7 @@
  
 <div class="text-white mt-36 m-0 md:m-52 font-mono"> 
     {% load static %}
-    <h2 class="text-center text-7xl ml-6 text-green-500 ">{{blogs.blog_title}}</h2><br>
+    <h2 class="text-center text-4xl md:text-6xl ml-6 text-green-500 ">{{blogs.blog_title}}</h2><br>
     <p class="text-xl ml-7">{{section}}</p><br><hr><br>
     {% for section in sections %}
     <h4 class="text-xl text-left p-8 rounded-lg">{{section.subheading}}<br><br>{{ section.content }}</h4><br>
