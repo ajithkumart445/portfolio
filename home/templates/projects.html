@@ -1,0 +1,231 @@
+{% extends 'main.html' %}
+
+{% block title %}{{ project.project_name }} | Ajithkumar T.{% endblock %}
+{% block meta_description %}{{ project.project_description|truncatechars:160 }}{% endblock %}
+{% block og_title %}{{ project.project_name }} | Ajithkumar T.{% endblock %}
+{% block og_description %}{{ project.project_description|truncatechars:160 }}{% endblock %}
+{% block twitter_title %}{{ project.project_name }} | Ajithkumar T.{% endblock %}
+{% block twitter_description %}{{ project.project_description|truncatechars:160 }}{% endblock %}
+{% if project.thumbnail %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ project.thumbnail.url }}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{{ project.thumbnail.url }}{% endblock %}
+{% endif %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "CreativeWork",
+  "name": "{{ project.project_name|escapejs }}",
+  "description": "{{ project.project_description|escapejs }}",
+  "author": {
+    "@type": "Person",
+    "name": "Ajithkumar T."
+  }
+}
+</script>
+{% endblock %}
+
+
+{% block home %}
+<div class="relative w-full pb-32 overflow-hidden">
+
+    <!-- Background ambient glows -->
+    <div class="fixed top-0 left-0 w-[600px] h-[600px] rounded-full bg-cyan-500/5 blur-[160px] pointer-events-none -z-10"></div>
+    <div class="fixed bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-purple-500/5 blur-[160px] pointer-events-none -z-10"></div>
+
+    <!-- Back Nav -->
+    <div class="max-w-4xl mx-auto px-6 pt-28 pb-6">
+        <a href="{% url 'home' %}#projects"
+           class="inline-flex items-center gap-2 text-slate-400 hover:text-cyan-400 font-mono text-xs uppercase tracking-[0.3em] transition-all duration-300 group">
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Back to Projects
+        </a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         PROJECT HERO
+    ═══════════════════════════════════════════════ -->
+    <section class="max-w-4xl mx-auto px-6 mb-16 reveal">
+
+        <!-- Tech badge -->
+        <div class="mb-6">
+            <span class="inline-block font-mono text-xs text-cyan-400 uppercase tracking-[0.4em] bg-cyan-500/10 border border-cyan-500/20 px-4 py-1.5 rounded-full">
+                {{ project.technologies_used|truncatechars:50 }}
+            </span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight mb-6">
+            {{ project.project_name }}
+        </h1>
+
+        <!-- Description -->
+        <p class="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mb-12">
+            {{ project.project_description }}
+        </p>
+
+        <!-- Meta bar -->
+        <div class="flex flex-wrap gap-6 py-8 border-y border-slate-800/60">
+            {% if project.start_timeline %}
+            <div class="space-y-1">
+                <span class="block font-mono text-[10px] text-slate-500 uppercase tracking-widest">Timeline</span>
+                <span class="text-slate-300 font-medium">
+                    {{ project.start_timeline|date:"M Y" }}
+                    &mdash;
+                    {% if project.end_timeline %}{{ project.end_timeline|date:"M Y" }}{% else %}Present{% endif %}
+                </span>
+            </div>
+            {% endif %}
+            {% if project.role %}
+            <div class="space-y-1">
+                <span class="block font-mono text-[10px] text-slate-500 uppercase tracking-widest">Role</span>
+                <span class="text-slate-300 font-medium">{{ project.role }}</span>
+            </div>
+            {% endif %}
+            <div class="space-y-1">
+                <span class="block font-mono text-[10px] text-slate-500 uppercase tracking-widest">Tech Stack</span>
+                <span class="text-cyan-400 font-semibold">{{ project.technologies_used }}</span>
+            </div>
+            {% if project.project_link %}
+            <div class="ml-auto flex items-end">
+                <a href="{{ project.project_link }}" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold text-sm hover:opacity-90 transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-purple-900/30">
+                    Live Demo
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         HERO THUMBNAIL IMAGE
+    ═══════════════════════════════════════════════ -->
+    {% if project.thumbnail %}
+    <div class="max-w-4xl mx-auto px-6 mb-16 reveal">
+        <div class="relative overflow-hidden rounded-2xl border border-slate-700/40 shadow-2xl ring-1 ring-white/5">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent z-10 pointer-events-none"></div>
+            <img src="{{ project.thumbnail.url }}"
+                 alt="{{ project.project_name }}"
+                 class="w-full h-auto object-cover"
+                 loading="lazy">
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- ═══════════════════════════════════════════════
+         CONTENT SECTIONS
+    ═══════════════════════════════════════════════ -->
+    <div class="max-w-4xl mx-auto px-6 space-y-12 pb-16">
+        
+        <!-- Overview -->
+        {% if project.overview %}
+        <div class="reveal relative rounded-2xl border border-slate-800/60 bg-slate-900/40 backdrop-blur-sm p-8 md:p-12 overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent"></div>
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-4">
+                <span class="flex-shrink-0 w-1 h-8 rounded-full bg-gradient-to-b from-cyan-400 to-purple-500"></span>
+                Overview
+            </h2>
+            <div class="text-slate-400 leading-relaxed text-[1.0625rem] whitespace-pre-line">
+                {{ project.overview }}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Key Features (2-col grid) -->
+        {% if features %}
+        <div class="reveal">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-8 flex items-center gap-4">
+                <span class="flex-shrink-0 w-1 h-8 rounded-full bg-gradient-to-b from-cyan-400 to-purple-500"></span>
+                Key Features
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% for feature in features %}
+                <div class="rounded-xl border border-slate-800/60 bg-slate-900/30 p-6 hover:border-cyan-500/30 transition-colors">
+                    <h3 class="text-lg font-bold text-white mb-3">{{ feature.heading }}</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">{{ feature.content }}</p>
+                    {% if feature.image %}
+                    <img src="{{ feature.image.url }}" alt="{{ feature.heading }}" class="w-full h-auto mt-4 rounded-lg border border-slate-700/50">
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Challenges & Results -->
+        <div class="grid grid-cols-1 gap-12">
+            {% if project.challenges %}
+            <div class="reveal relative rounded-2xl border border-red-900/30 bg-slate-900/40 backdrop-blur-sm p-8 md:p-10">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-4">
+                    <span class="flex-shrink-0 w-1 h-8 rounded-full bg-gradient-to-b from-red-500 to-orange-500"></span>
+                    Challenges
+                </h2>
+                <div class="text-slate-400 leading-relaxed text-[1.0625rem] whitespace-pre-line">
+                    {{ project.challenges }}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if project.results %}
+            <div class="reveal relative rounded-2xl border border-green-900/30 bg-slate-900/40 backdrop-blur-sm p-8 md:p-10">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-4">
+                    <span class="flex-shrink-0 w-1 h-8 rounded-full bg-gradient-to-b from-green-400 to-emerald-600"></span>
+                    Results
+                </h2>
+                <div class="text-slate-400 leading-relaxed text-[1.0625rem] whitespace-pre-line">
+                    {{ project.results }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Gallery (2-col grid) -->
+        {% if galleries %}
+        <div class="reveal pt-8">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-8 flex items-center gap-4">
+                <span class="flex-shrink-0 w-1 h-8 rounded-full bg-gradient-to-b from-cyan-400 to-purple-500"></span>
+                Gallery
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% for gallery in galleries %}
+                <div class="rounded-xl overflow-hidden border border-slate-700/40 group cursor-pointer">
+                    <img src="{{ gallery.image.url }}" alt="{{ gallery.heading }}" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500">
+                    {% if gallery.heading %}
+                    <div class="p-4 bg-slate-900 border-t border-slate-800">
+                        <p class="text-sm text-slate-300 font-medium">{{ gallery.heading }}</p>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         CTA — Back navigation
+    ═══════════════════════════════════════════════ -->
+    <div class="max-w-4xl mx-auto px-6 mt-20 reveal">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-6 p-8 rounded-2xl border border-slate-800/60 bg-slate-900/30">
+            <div>
+                <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mb-1">Explore more work</p>
+                <p class="text-lg font-bold text-white">See all projects in my portfolio</p>
+            </div>
+            <a href="{% url 'home' %}#projects"
+               class="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-slate-700 text-slate-300 hover:text-white hover:border-cyan-500/40 hover:bg-slate-800 transition-all duration-300 font-semibold text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                All Projects
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

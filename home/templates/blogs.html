@@ -1,0 +1,143 @@
+{% extends 'main.html' %}
+
+{% block title %}{{ blog.blog_title }} | Ajithkumar T.{% endblock %}
+{% block meta_description %}Read about {{ blog.blog_title }} on Ajithkumar T.'s portfolio.{% endblock %}
+{% block og_title %}{{ blog.blog_title }} | Ajithkumar T.{% endblock %}
+{% block og_description %}Read about {{ blog.blog_title }} on Ajithkumar T.'s portfolio.{% endblock %}
+{% block twitter_title %}{{ blog.blog_title }} | Ajithkumar T.{% endblock %}
+{% block twitter_description %}Read about {{ blog.blog_title }} on Ajithkumar T.'s portfolio.{% endblock %}
+{% if blog.thumbnail %}
+{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{{ blog.thumbnail.url }}{% endblock %}
+{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{{ blog.thumbnail.url }}{% endblock %}
+{% endif %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Article",
+  "headline": "{{ blog.blog_title|escapejs }}",
+  "author": {
+    "@type": "Person",
+    "name": "Ajithkumar T."
+  },
+  "datePublished": "{{ blog.post_date|date:'c' }}"
+}
+</script>
+{% endblock %}
+
+
+{% block home %}
+<div class="relative w-full pb-32 overflow-hidden">
+
+    <!-- Background ambient glows -->
+    <div class="fixed top-0 right-0 w-[600px] h-[600px] rounded-full bg-purple-500/5 blur-[160px] pointer-events-none -z-10"></div>
+    <div class="fixed bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-cyan-500/4 blur-[160px] pointer-events-none -z-10"></div>
+
+    <!-- Back Nav -->
+    <div class="max-w-3xl mx-auto px-6 pt-28 pb-6">
+        <a href="{% url 'home' %}#blog"
+           class="inline-flex items-center gap-2 text-slate-400 hover:text-purple-400 font-mono text-xs uppercase tracking-[0.3em] transition-all duration-300 group">
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Back to Blog
+        </a>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         BLOG HERO
+    ═══════════════════════════════════════════════ -->
+    <section class="max-w-3xl mx-auto px-6 mb-16 text-center reveal">
+
+        <!-- Date badge -->
+        <div class="mb-6">
+            <span class="inline-block font-mono text-xs text-purple-400 uppercase tracking-[0.4em] bg-purple-500/10 border border-purple-500/20 px-4 py-1.5 rounded-full">
+                {{ blog.post_date|date:"F d, Y" }}
+            </span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight mb-6">
+            {{ blog.blog_title }}
+        </h1>
+
+        <!-- Sub-label -->
+        <p class="font-mono text-xs text-slate-500 uppercase tracking-[0.4em]">Technical Insight · Data Log</p>
+
+        <!-- Horizontal rule -->
+        <div class="mt-10 h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         HERO THUMBNAIL IMAGE
+    ═══════════════════════════════════════════════ -->
+    {% if blog.thumbnail %}
+    <div class="max-w-3xl mx-auto px-6 mb-16 reveal">
+        <div class="relative overflow-hidden rounded-2xl border border-slate-700/40 shadow-2xl ring-1 ring-white/5">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent z-10 pointer-events-none"></div>
+            <img src="{{ blog.thumbnail.url }}"
+                 alt="{{ blog.blog_title }}"
+                 class="w-full h-auto object-cover"
+                 loading="lazy">
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- ═══════════════════════════════════════════════
+         CONTENT SECTIONS
+    ═══════════════════════════════════════════════ -->
+    <div class="max-w-3xl mx-auto px-6 space-y-10">
+        {% for section in sections %}
+        <div class="reveal relative rounded-2xl border border-slate-800/60 bg-slate-900/40 backdrop-blur-sm p-8 md:p-12 overflow-hidden">
+            <!-- Subtle top accent line -->
+            <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/40 to-transparent"></div>
+
+            {% if section.subheading %}
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-8 flex items-center gap-4">
+                <span class="flex-shrink-0 w-1 h-8 rounded-full bg-gradient-to-b from-purple-400 to-cyan-500"></span>
+                {{ section.subheading }}
+            </h2>
+            {% endif %}
+
+            <div class="text-slate-400 leading-relaxed text-[1.0625rem] whitespace-pre-line">
+                {{ section.content }}
+            </div>
+
+            {% if section.image %}
+            <figure class="mt-10 overflow-hidden rounded-xl border border-slate-700/40 shadow-xl">
+                <img src="{{ section.image.url }}"
+                     alt="{{ section.subheading }}"
+                     class="w-full h-auto object-cover"
+                     loading="lazy">
+            </figure>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="text-center py-20">
+            <p class="font-mono text-sm text-slate-600 uppercase tracking-widest">No content available.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- ═══════════════════════════════════════════════
+         CTA — Back navigation
+    ═══════════════════════════════════════════════ -->
+    <div class="max-w-3xl mx-auto px-6 mt-20 reveal">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-6 p-8 rounded-2xl border border-slate-800/60 bg-slate-900/30">
+            <div>
+                <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mb-1">Continue reading</p>
+                <p class="text-lg font-bold text-white">Explore more technical insights</p>
+            </div>
+            <a href="{% url 'home' %}#blog"
+               class="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-slate-700 text-slate-300 hover:text-white hover:border-purple-500/40 hover:bg-slate-800 transition-all duration-300 font-semibold text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                All Posts
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

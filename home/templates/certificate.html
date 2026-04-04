@@ -1,0 +1,123 @@
+{% extends 'main.html' %}
+
+{% block home %}
+<div class="relative w-full pb-32 overflow-hidden">
+
+    <!-- Background ambient glows -->
+    <div class="fixed top-0 left-0 w-[600px] h-[600px] rounded-full bg-cyan-500/5 blur-[160px] pointer-events-none -z-10"></div>
+    <div class="fixed bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-purple-500/5 blur-[160px] pointer-events-none -z-10"></div>
+
+    <!-- ═══════════════════════════════════════════════
+         HERO
+    ═══════════════════════════════════════════════ -->
+    <section class="max-w-7xl mx-auto px-6 pt-28 pb-20 text-center reveal">
+        <p class="font-mono text-xs tracking-[0.5em] uppercase text-cyan-400/80 mb-4">
+            Credential_Vault.Open()
+        </p>
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight mb-4">
+            Verified <span class="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">Credentials</span>
+        </h1>
+        <p class="text-slate-400 max-w-xl mx-auto text-lg leading-relaxed">
+            A curated record of certifications, professional achievements, and validated expertise.
+        </p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         CERTIFICATIONS GRID
+    ═══════════════════════════════════════════════ -->
+    <section class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+            {% for cert in certifications %}
+            <div class="group relative flex flex-col items-center text-center p-8 rounded-2xl border border-slate-800/60 bg-slate-900/40 backdrop-blur-sm hover:border-cyan-500/30 transition-all duration-300 hover:-translate-y-1.5 overflow-hidden reveal">
+
+                <!-- Hover top accent bar -->
+                <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                <!-- Cert image / icon -->
+                <div class="mb-6 w-20 h-20 flex items-center justify-center rounded-xl border border-slate-700/60 bg-slate-800/50 p-3 group-hover:border-cyan-500/30 transition-all duration-300">
+                    {% if cert.image %}
+                    <img src="{{ cert.image.url }}"
+                         alt="{{ cert.name }}"
+                         class="max-h-full max-w-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+                         loading="lazy">
+                    {% else %}
+                    <svg class="w-10 h-10 text-cyan-400/60 group-hover:text-cyan-400 transition-colors duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                    </svg>
+                    {% endif %}
+                </div>
+
+                <!-- Name -->
+                <h3 class="font-bold text-base text-slate-200 group-hover:text-white transition-colors duration-300 leading-snug mb-2">
+                    {{ cert.name }}
+                </h3>
+
+                <!-- Issuer -->
+                <p class="font-mono text-[10px] text-slate-500 uppercase tracking-widest mb-1">
+                    {{ cert.issuer }}
+                </p>
+
+                <!-- Date -->
+                <p class="font-mono text-[10px] text-slate-600 mb-5">
+                    {{ cert.date_earned|date:"M Y" }}
+                </p>
+
+                {% if cert.credential_id %}
+                <p class="font-mono text-[9px] text-slate-700 mb-4">ID: {{ cert.credential_id }}</p>
+                {% endif %}
+
+                <!-- Verify button -->
+                {% if cert.credential_url %}
+                <a href="{{ cert.credential_url }}"
+                   target="_blank" rel="noopener noreferrer"
+                   class="mt-auto inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500 hover:text-slate-950 font-mono text-[10px] uppercase tracking-widest transition-all duration-300">
+                    Verify
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                </a>
+                {% endif %}
+            </div>
+            {% empty %}
+
+            <!-- Placeholder cards if no certifications in DB -->
+            {% for i in "12345678" %}
+            <div class="flex flex-col items-center text-center p-8 rounded-2xl border border-slate-800/40 bg-slate-900/20 gap-4 opacity-40 reveal">
+                <div class="w-20 h-20 rounded-xl border border-slate-700/30 bg-slate-800/30 flex items-center justify-center">
+                    <svg class="w-8 h-8 text-slate-600" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                    </svg>
+                </div>
+                <div class="space-y-1">
+                    <div class="h-3 w-28 rounded bg-slate-700/50 mx-auto"></div>
+                    <div class="h-2 w-20 rounded bg-slate-800/60 mx-auto mt-2"></div>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         CTA FOOTER BAR
+    ═══════════════════════════════════════════════ -->
+    <div class="max-w-7xl mx-auto px-6 mt-20 reveal">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-6 p-8 rounded-2xl border border-slate-800/60 bg-slate-900/30">
+            <div>
+                <p class="text-slate-500 font-mono text-xs uppercase tracking-widest mb-1">Continuous learning</p>
+                <p class="text-lg font-bold text-white">Always expanding the knowledge stack</p>
+            </div>
+            <a href="{% url 'home' %}"
+               class="flex-shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold text-sm hover:opacity-90 transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-purple-900/30">
+                Back to Portfolio
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock home %}
